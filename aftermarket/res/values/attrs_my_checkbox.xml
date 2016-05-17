@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="MyCheckBox">
+        <attr name="text" format="reference|string"></attr>
+        <attr name="checked" format="reference|boolean"></attr>
+    </declare-styleable>
+
+</resources>

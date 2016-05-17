@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bithday_layout"
+        android:background="#ffffff"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:text="选择日期时间"
+            android:textColor="@android:color/black" />
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="80dip"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:background="#00ffffff"
+            android:text="取消"
+            android:textColor="@android:color/black"/>
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="80dip"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="right"
+            android:text="完成"
+            android:background="#00ffffff"
+            android:textColor="@android:color/black" />
+    </RelativeLayout>
+	<View 
+	    android:layout_width="wrap_content"
+	    android:layout_height="1dp"
+	    android:background="#e1e1e1"
+	    />
+   <RelativeLayout
+        android:id="@+id/bithday_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+         android:background="#ffffff"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="150dp"
+            android:layout_marginLeft="15dip"
+            android:layout_marginRight="15dip"
+            android:gravity="center"
+            android:background="#ffffff"
+            android:orientation="horizontal" >
+
+            <com.example.time.view.datepicker.WheelView
+                android:id="@+id/year"
+                android:layout_width="0.0dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="1" />
+
+            <com.example.time.view.datepicker.WheelView
+                android:id="@+id/month"
+                android:layout_width="0.0dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="1" />
+
+            <com.example.time.view.datepicker.WheelView
+                android:id="@+id/day"
+                android:layout_width="0.0dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="1" />
+
+            <com.example.time.view.datepicker.WheelView
+                android:id="@+id/dialog_time_hour"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1" />
+
+            <com.example.time.view.datepicker.WheelView
+                android:id="@+id/dialog_time_minute"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+   </RelativeLayout> 
+
+</LinearLayout>

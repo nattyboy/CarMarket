@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:my="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e9e9e9"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#0983D0"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="洗车"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:onClick="backToHomeFragment"
+            android:paddingRight="40dp"
+            android:src="@drawable/dingbu_fanhui" />
+
+        <ImageView
+            android:id="@+id/onlinetel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="10dp"
+            android:onClick="onlineTel"
+            android:src="@drawable/dingbu_zaixiankefu" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="#ffffff"
+            android:orientation="vertical" >
+
+            <TextView
+                style="@style/BaseText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/fuwufangshi"
+                android:gravity="center"
+                android:text="美容项目"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <com.example.aftermarket.views.MyCheckBox
+                    style="@style/BaseCheckBox"
+                    my:text="玻璃护理" />
+
+                <com.example.aftermarket.views.MyCheckBox
+                    style="@style/BaseCheckBox"
+                    my:text="底盘装甲" />
+
+                <com.example.aftermarket.views.MyCheckBox
+                    style="@style/BaseCheckBox"
+                    my:text="镀晶" />
+
+                <com.example.aftermarket.views.MyCheckBox
+                    style="@style/BaseCheckBox"
+                    my:text="镀膜" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <com.example.aftermarket.views.MyCheckBox
+                    style="@style/BaseCheckBox"
+                    my:text="封釉" />
+
+                <com.example.aftermarket.views.MyCheckBox
+                    style="@style/BaseCheckBox"
+                    my:text="机舱清洗" />
+
+                <com.example.aftermarket.views.MyCheckBox
+                    style="@style/BaseCheckBox"
+                    my:text="内饰清洗" />
+
+                <com.example.aftermarket.views.MyCheckBox
+                    style="@style/BaseCheckBox"
+                    my:text="抛光打蜡" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <com.example.aftermarket.views.MyCheckBox
+                    style="@style/BaseCheckBox"
+                    my:text="汽车清洗" />
+
+                <com.example.aftermarket.views.MyCheckBox
+                    style="@style/BaseCheckBox"
+                    my:text="杀菌消毒" />
+
+                <com.example.aftermarket.views.MyCheckBox
+                    style="@style/BaseCheckBox"
+                    my:text="胎龄护理" />
+
+                <com.example.aftermarket.views.MyCheckBox
+                    style="@style/BaseCheckBox"
+                    my:text="车窗贴膜" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/white"
+                android:padding="14dp"
+                android:text="预约时间： "
+                android:textColor="@color/textBlack"
+                android:textSize="15sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="10dp" >
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="0dp"
+                    android:background="@null"
+                    android:gravity="left"
+                    android:hint="输入洗车具体需求……"
+                    android:minLines="4"
+                    android:padding="10dp"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/chakanshangjia" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:paddingBottom="15dp"
+                    android:text="查看商家"
+                    android:textColor="#ffffff"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+
+            <com.example.aftermarket.views.NoScrollGridView
+                android:id="@+id/gridView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnWidth="80dp"
+                android:gravity="center"
+                android:horizontalSpacing="20dp"
+                android:numColumns="auto_fit"
+                android:padding="10dp"
+                android:scrollbarStyle="insideOverlay"
+                android:scrollbars="vertical"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="20dp" >
+            </com.example.aftermarket.views.NoScrollGridView>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:background="@drawable/ciicleshape"
+                android:gravity="center"
+                android:onClick="onclickSend"
+                android:paddingBottom="7dp"
+                android:paddingTop="7dp"
+                android:text="一键发送"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

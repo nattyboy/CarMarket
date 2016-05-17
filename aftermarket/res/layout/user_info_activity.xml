@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.example.aftermarket"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eff2f6"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#fff" >
+
+        <TextView
+            android:id="@+id/car_textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="用户信息"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#474747"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/car_user_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:onClick="backToMycenter"
+            android:paddingRight="40dp"
+            android:src="@drawable/dingbu_fanhui2" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/change_icon_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#ffffff" >
+
+        <TextView
+            android:id="@+id/car_user_tel_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:text="头像"
+            android:textSize="15dp" />
+
+        <ImageView
+            android:id="@+id/icon_click_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:src="@drawable/cllick_jinru" />
+
+        <com.example.aftermarket.views.CircleImageView
+            android:id="@+id/user_logo_user"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/icon_click_in"
+            android:src="@drawable/touxiang"
+            app:border_color="#ffffff"
+            app:border_width="2dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/name_change_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:background="#ffffff" >
+
+        <TextView
+            android:id="@+id/car_fra_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:text="姓名"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/userinfo_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/name_jinru"
+            android:textSize="15sp"
+            android:layout_centerInParent="true"
+            android:text="李某某" />
+
+        <ImageView
+            android:id="@+id/name_jinru"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/cllick_jinru" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/car_sexLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="#ffffff" >
+
+        <TextView
+            android:id="@+id/eng_fra_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:text="性别"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/car_setSex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/car_sex_iv"
+            android:textSize="15sp"
+            android:text="女" />
+
+        <ImageView
+            android:id="@+id/car_sex_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:src="@drawable/cllick_jinru" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="#ffffff" >
+
+        <TextView
+            android:id="@+id/car_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:text="手机号码"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/user_tel_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textSize="15sp"
+            android:layout_marginRight="10dp"
+            android:text="18888888888" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/car_modify_password_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="#ffffff" >
+
+        <TextView
+            android:id="@+id/car_num_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:text="修改登录密码"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/car_password_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:src="@drawable/cllick_jinru" />
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/login_out"
+        android:gravity="center"
+        android:onClick="quitLogin"
+        android:paddingBottom="7dp"
+        android:paddingTop="7dp"
+        android:text="退出登录"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+</LinearLayout>

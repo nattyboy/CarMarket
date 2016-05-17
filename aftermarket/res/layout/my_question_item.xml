@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#e9e9e9"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="#ffffff"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView_ask_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="15sp"
+            android:text="启动车辆时惊讶地发现车钥匙拧不动，或者是方向盘卡住了，因为这不过是车辆向盘锁起了作用" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#e9e9e9" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" 
+            android:layout_margin="10dp">
+
+            <TextView
+                android:id="@+id/textView_ask_undo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/ask_shape_undo"
+                android:textSize="14sp"
+                android:text="未解决" />
+
+            <TextView
+                android:id="@+id/textView_ask_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/textView_ask_undo"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/ask_shape_message"
+                android:textColor="#ffffff"
+                android:textSize="14sp"
+                android:text="新消息(5)" />
+
+            <TextView
+                android:id="@+id/textView_ask_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/textView_ask_time"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="10dp"
+                android:textSize="14sp"
+                android:text="1个回复" />
+
+            <TextView
+                android:id="@+id/textView_ask_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:textSize="15sp"
+                android:text="1小时前" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>
