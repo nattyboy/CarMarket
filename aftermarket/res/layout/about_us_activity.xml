@@ -95,7 +95,7 @@
             android:background="#ffffff"
             android:lineSpacingExtra="4dp"
             android:padding="10dp"
-            android:text="     所谓汽车后市场是指汽车销售以后，围绕汽车使用过程中的各种服务，它涵盖了消费者买车后所需要的一切服务。也就是说，汽车从售出到报废的过程中，围绕汽车售后使用环节中各种后继需要和服务而产生的一系列交易活动的总称。"
+            android:text="     所谓养车助手是指汽车销售以后，围绕汽车使用过程中的各种服务，它涵盖了消费者买车后所需要的一切服务。也就是说，汽车从售出到报废的过程中，围绕汽车售后使用环节中各种后继需要和服务而产生的一系列交易活动的总称。"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#868686"
             android:textSize="14sp" />

@@ -203,6 +203,14 @@
         </LinearLayout>
     </LinearLayout>
 
+    <com.example.aftermarket.views.NoScrollListView
+        android:id="@+id/listView_promote_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@null"
+        android:background="#ffffff" >
+    </com.example.aftermarket.views.NoScrollListView>
+
     <RelativeLayout
         android:id="@+id/carful_layout"
         android:layout_width="match_parent"

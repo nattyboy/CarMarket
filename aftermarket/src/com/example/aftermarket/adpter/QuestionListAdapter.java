@@ -20,6 +20,7 @@ import com.example.aftermarket.bean.Question;
 import com.example.aftermarket.ui.QuestionDetailActivity;
 import com.example.aftermarket.views.CircleImageView;
 import com.example.aftermarket.views.SlideShowView;
+import com.example.aftermarket.views.SlideShowViewQ;
 
 /**
  * Created by EASTMOOD on 2016/3/15.
@@ -109,7 +110,7 @@ public class QuestionListAdapter extends BaseListAdapter<Question> {
 		public CircleImageView answer_img;
 		public TextView user_name, car_name, reply, time, content, answer_from, answer_content;
 		LinearLayout ll_answer;
-		SlideShowView slideshowView_question_item;
+		SlideShowViewQ slideshowView_question_item;
 	}
 
 }

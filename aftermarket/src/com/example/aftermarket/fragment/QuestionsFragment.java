@@ -33,7 +33,7 @@ import com.example.aftermarket.ui.HomeActivity;
 import com.example.aftermarket.ui.QuestionDetailActivity;
 import com.example.aftermarket.ui.SearchQuestionContent;
 import com.example.aftermarket.ui.ShopLoginActivity;
-import com.example.aftermarket.views.SlideShowView;
+import com.example.aftermarket.views.SlideShowViewQ;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.HttpUtils;
@@ -74,7 +74,7 @@ public class QuestionsFragment extends Fragment implements IXListViewListener {
 	private View view;
 	private Activity homeActivity;
 	private DemoApplication app;
-	private SlideShowView mSlideShowView;
+	private SlideShowViewQ mSlideShowView;
 	private ArrayList<ImageView> imageDots = new ArrayList<>();;// 定义圆点dot数组
 	private ImageView dot0, dot1, dot2, dot3;
 	private LinearLayout progressLayout;
@@ -117,7 +117,7 @@ public class QuestionsFragment extends Fragment implements IXListViewListener {
 		imageUris.add(R.drawable.tiku_banner3);
 		view = inflater.inflate(R.layout.activity_question_list, container, false);
 		tipsIv = (ImageView) view.findViewById(R.id.fragment_question_msg_iv_tis);
-		mSlideShowView = (SlideShowView) view.findViewById(R.id.slideshowView_question);
+		mSlideShowView = (SlideShowViewQ) view.findViewById(R.id.slideshowView_question);
 		mSlideShowView.setImageUris(imageUris);
 		dot0 = (ImageView) view.findViewById(R.id.dot0);
 		dot1 = (ImageView) view.findViewById(R.id.dot1);

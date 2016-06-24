@@ -6,12 +6,12 @@
     android:background="#ffffff"
     android:orientation="vertical" >
 
-    <com.example.aftermarket.views.SlideShowView
+    <com.example.aftermarket.views.SlideShowViewQ
         android:id="@+id/slideshowView_question_item"
         android:layout_width="fill_parent"
         android:visibility="gone"
         android:layout_height="130dp" >
-    </com.example.aftermarket.views.SlideShowView>
+    </com.example.aftermarket.views.SlideShowViewQ>
 
     <LinearLayout
         android:layout_width="match_parent"

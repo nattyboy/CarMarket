@@ -19,7 +19,7 @@ import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
-
+import android.os.Process;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
@@ -365,14 +365,20 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 						for (Activity act : activities) {
 							act.finish();// 显式结束
 						}
-						try {
+						/*try {
 							Thread.sleep(2000);
 							finish();
 							System.exit(0);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
-						}
+						}*/
+						try {
+	                        Thread.sleep(500);
+	                        Process.killProcess(Process.myPid());
+	                    } catch (InterruptedException e) {
+	                        e.printStackTrace();
+	                    }
 						
 
 					}

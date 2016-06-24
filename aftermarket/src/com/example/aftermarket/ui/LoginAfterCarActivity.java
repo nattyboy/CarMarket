@@ -21,6 +21,8 @@ import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -47,7 +49,7 @@ public class LoginAfterCarActivity extends Activity {
 	private RelativeLayout chooseCar;
 	private TextView setSex;
 	private TextView setArea;
-	private PopupWindow popupWindow; 
+	private PopupWindow popupWindow;
 	private TextView manTv;
 	private TextView womanTv;
 	private TextView cancelTv;
@@ -81,15 +83,15 @@ public class LoginAfterCarActivity extends Activity {
 		setSex = (TextView) findViewById(R.id.set_sex);
 		setArea = (TextView) findViewById(R.id.set_area);
 		skipClick = (TextView) findViewById(R.id.textView2_skip);
-		/*LayoutInflater inflater = LayoutInflater.from(this);
-		final View view = inflater.inflate(R.layout.sex_item, null);
-		popupWindow = new PopupWindow(view, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		popupWindow.update();
-		popupWindow.setTouchable(true);
-		popupWindow.setFocusable(true);
-		popupWindow.setOutsideTouchable(true);
-		ColorDrawable dw = new ColorDrawable(-00000);
-		popupWindow.setBackgroundDrawable(dw);*/
+		/*
+		 * LayoutInflater inflater = LayoutInflater.from(this); final View view
+		 * = inflater.inflate(R.layout.sex_item, null); popupWindow = new
+		 * PopupWindow(view, LayoutParams.WRAP_CONTENT,
+		 * LayoutParams.WRAP_CONTENT); popupWindow.update();
+		 * popupWindow.setTouchable(true); popupWindow.setFocusable(true);
+		 * popupWindow.setOutsideTouchable(true); ColorDrawable dw = new
+		 * ColorDrawable(-00000); popupWindow.setBackgroundDrawable(dw);
+		 */
 
 		skipClick.setOnClickListener(new OnClickListener() {
 
@@ -116,11 +118,11 @@ public class LoginAfterCarActivity extends Activity {
 				WindowManager.LayoutParams lp = getWindow().getAttributes();
 				lp.alpha = 0.4f;
 				getWindow().setAttributes(lp);
-				//popuWindowTel.setOutsideTouchable(true);
-				//popuWindowTel.setFocusable(true);
+				// popuWindowTel.setOutsideTouchable(true);
+				// popuWindowTel.setFocusable(true);
 				WindowManager windowManager = getWindowManager();
 				Display display = windowManager.getDefaultDisplay();
-				//popuWindowTel.setWidth(display.getWidth() * 80 / 100);
+				// popuWindowTel.setWidth(display.getWidth() * 80 / 100);
 				popuWindowTel.showAtLocation(sexLayout, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 10);
 				popuWindowTel.setAnimationStyle(R.style.ActionSheetDialogAnimation);
 				popuWindowTel.update();
@@ -175,15 +177,15 @@ public class LoginAfterCarActivity extends Activity {
 				});
 			}
 		});
-		
+
 		/**
 		 * 设置所在地
 		 */
 		arealayout.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				
+
 				AddressPicker addressPicker = new AddressPicker();
 
 				addressPicker.selectAddressDialog(LoginAfterCarActivity.this, setArea);
@@ -209,11 +211,28 @@ public class LoginAfterCarActivity extends Activity {
 	@Override
 	protected void onNewIntent(Intent intent) {
 		super.onNewIntent(intent);
+
 		carTv = (TextView) findViewById(R.id.textView11_car);
 		if (null != intent.getStringExtra("car_version_login")) {
 			carTv.setText(intent.getStringExtra("car_version_login"));
 		}
-		Log.e("car_version", "car_versionintent" + intent.getStringExtra("car_version"));
+		
+		String car_Name = intent.getStringExtra("carName");
+		/**
+		 * 返回汽车头像
+		 */
+		String car_Img = intent.getStringExtra("carImg");
+		String car_Id = intent.getStringExtra("car_category_id_login");
+
+		SharedPreferences sp = getSharedPreferences("LoginAfterCarActivity", MODE_PRIVATE);
+		Editor editor = sp.edit();
+		editor.putString("car_Name", intent.getStringExtra("car_version_login"));
+		editor.putString("car_Img", car_Img);
+		editor.putString("car_Id", car_Id);
+		/*editor.putString("car_Name", "111");
+		editor.putString("car_Img", "111");
+		editor.putString("car_Id", "111");*/
+		editor.commit();
 	}
 
 	public void toCarHome(View v) {
@@ -222,8 +241,9 @@ public class LoginAfterCarActivity extends Activity {
 		startActivity(intent);
 		finish();
 	}
-	public void baceToRegister(View v){
-		Intent intent=new Intent(LoginAfterCarActivity.this,ShopRegisterActivity.class);
+
+	public void baceToRegister(View v) {
+		Intent intent = new Intent(LoginAfterCarActivity.this, ShopRegisterActivity.class);
 		startActivity(intent);
 		finish();
 	}

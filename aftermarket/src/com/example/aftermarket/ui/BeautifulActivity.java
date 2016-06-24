@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
@@ -161,7 +162,12 @@ public class BeautifulActivity extends Activity implements OnLayoutChangeListene
 		gridViewName = (NoScrollGridView) findViewById(R.id.gridView_beauty_name);
 		adapterName = new SquareAdapterGridItem(this, 0);
 		gridViewName.setAdapter(adapterName);
-
+		
+		SharedPreferences sp = getSharedPreferences("LoginAfterCarActivity", MODE_PRIVATE);
+		category_name=sp.getString("car_Name", "");
+		category_id=sp.getString("car_Id", "");
+		myCarTv.setText(category_name);
+		
 		time.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -436,6 +442,8 @@ public class BeautifulActivity extends Activity implements OnLayoutChangeListene
 		popuWindowTel.showAtLocation((View) view.getParent(), Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
 
 		popuWindowTel.update();
+		TextView textView_tel_num=(TextView) contentView1.findViewById(R.id.textView_tel_num);
+		textView_tel_num.setText("拨打电话： "+app.getTelNum().trim());
 		TextView cancelTv = (TextView) contentView1.findViewById(R.id.cancel_tv);
 		TextView ringTv = (TextView) contentView1.findViewById(R.id.ring_tv);
 		cancelTv.setOnClickListener(new OnClickListener() {
@@ -449,7 +457,7 @@ public class BeautifulActivity extends Activity implements OnLayoutChangeListene
 
 			@Override
 			public void onClick(View v) {
-				String mobile = "4000000000";
+				String mobile = app.getTelNum().trim();
 				Intent intent = new Intent();
 				intent.setAction("android.intent.action.CALL");
 				intent.setData(Uri.parse("tel:" + mobile));// mobile为你要拨打的电话号码，模拟器中为模拟器编号也可

@@ -2,6 +2,7 @@ package com.example.aftermarket.ui;
 
 import org.lmw.demo.slidingtab.widget.PagerSlidingTabStrip;
 
+import com.example.aftermarket.DemoApplication;
 import com.example.aftermarket.R;
 import com.example.aftermarket.adpter.ToServerListAdapter.SureToPay;
 import com.example.aftermarket.fragment.AllOrderFragment;
@@ -67,6 +68,7 @@ public class OrderItemActivity extends FragmentActivity implements PayResultCall
 	PopupWindow popuWindowTell = null;
 	View contentView1l = null;
 	View allView;
+	private DemoApplication app;
 	/**
 	 * 支付所用变量
 	 */
@@ -100,6 +102,7 @@ public class OrderItemActivity extends FragmentActivity implements PayResultCall
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		initView();
+		
 		onlineTel = (ImageView) findViewById(R.id.order_onlie_tel);
 		onlineTel.setOnClickListener(new OnClickListener() {
 
@@ -125,6 +128,8 @@ public class OrderItemActivity extends FragmentActivity implements PayResultCall
 				popuWindowTel.showAtLocation((View) view.getParent(), Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
 
 				popuWindowTel.update();
+				TextView textView_tel_num=(TextView) contentView1.findViewById(R.id.textView_tel_num);
+				textView_tel_num.setText("拨打电话： "+app.getTelNum().trim());
 				TextView cancelTv = (TextView) contentView1.findViewById(R.id.cancel_tv);
 				TextView ringTv = (TextView) contentView1.findViewById(R.id.ring_tv);
 				cancelTv.setOnClickListener(new OnClickListener() {
@@ -138,7 +143,7 @@ public class OrderItemActivity extends FragmentActivity implements PayResultCall
 
 					@Override
 					public void onClick(View v) {
-						String mobile = "4000000000";
+						String mobile =app.getTelNum().trim();
 						Intent intent = new Intent();
 						intent.setAction("android.intent.action.CALL");
 						intent.setData(Uri.parse("tel:" + mobile));// mobile为你要拨打的电话号码，模拟器中为模拟器编号也可
@@ -182,6 +187,7 @@ public class OrderItemActivity extends FragmentActivity implements PayResultCall
 	}
 
 	private void initView() {
+		app=(DemoApplication) getApplication();
 		setContentView(R.layout.order_item_activity);
 		LayoutInflater mLayoutInflater = LayoutInflater.from(this);
 		allView = mLayoutInflater.inflate(R.layout.order_item_activity, null);

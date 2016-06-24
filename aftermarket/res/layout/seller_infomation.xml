@@ -147,7 +147,7 @@
                                 android:layout_below="@+id/seller_name"
                                 android:layout_margin="5dp"
                                 android:layout_toRightOf="@+id/open_time"
-                                android:text="1111"
+                                android:text=""
                                 android:textSize="15sp" />
                         </LinearLayout>
 
@@ -177,7 +177,7 @@
                                 android:layout_gravity="center"
                                 android:ems="5"
                                 android:gravity="center"
-                                android:text="10000"
+                                android:text=""
                                 android:textColor="#ffffff"
                                 android:textSize="8sp" />
                         </LinearLayout>
@@ -403,6 +403,14 @@
                         android:text="购买"
                         android:textColor="#ff0018" />
                 </RelativeLayout>
+
+                <com.example.aftermarket.views.NoScrollListView
+                    android:id="@+id/listView_promote_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffffff"
+                    android:divider="@null" >
+                </com.example.aftermarket.views.NoScrollListView>
 
                 <View
                     android:layout_width="match_parent"

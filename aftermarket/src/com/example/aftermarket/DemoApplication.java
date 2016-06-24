@@ -23,6 +23,7 @@ import android.graphics.Bitmap;
 import com.easemob.EMCallBack;
 import com.easemob.chatuidemo.DemoHXSDKHelper;
 import com.easemob.chatuidemo.domain.User;
+import com.example.aftermarket.bean.Home;
 import com.example.aftermarket.bean.UserInfo;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -39,6 +40,26 @@ public class DemoApplication extends Application {
 	public static ArrayList<Activity> activities = new ArrayList<>();
 
 	public static Object data = null;
+	
+	public static Home home;
+	
+	public static String balance;
+
+	public static String getBalance() {
+		return balance;
+	}
+
+	public static void setBalance(String balance) {
+		DemoApplication.balance = balance;
+	}
+
+	public static Home getHome() {
+		return home;
+	}
+
+	public static void setHome(Home home) {
+		DemoApplication.home = home;
+	}
 
 	public static Object getData() {
 		return data;
@@ -60,6 +81,17 @@ public class DemoApplication extends Application {
 	private static UserInfo userInfo;
 	private static String mCurrentLantitude;
 	private static String mCurrentLongitude;
+	
+	private static String telNum;
+	
+
+	public static String getTelNum() {
+		return telNum;
+	}
+
+	public static void setTelNum(String telNum) {
+		DemoApplication.telNum = telNum;
+	}
 
 	public static String getmCurrentLantitude() {
 		return mCurrentLantitude;

@@ -220,7 +220,7 @@ public class ToRefundListAdapter extends BaseAdapter {
 		bitmapUtils.configDefaultBitmapMaxSize(100, 100);
 		bitmapUtils.display(vh.carToServerImageView, orderList.get(position).company_logo);
 		vh.carSellerName.setText(orderList.get(position).company_name);
-		vh.carSellerMoney.setText(orderList.get(position).order_amount);
+		vh.carSellerMoney.setText(orderList.get(position).order_amount+" 元");
 		return convertView;
 	}
 

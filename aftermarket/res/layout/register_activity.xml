@@ -262,7 +262,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="《汽车后市场入驻协议》"
+                android:text="《养车助手入驻协议》"
                 android:textColor="#5990BB"
                 android:textSize="12sp" />
         </LinearLayout>

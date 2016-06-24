@@ -77,11 +77,15 @@ public class MyCenterFragment extends Fragment {
 	private LinearLayout relativeEdit;
 	private static final String REQUEST_HEADER_GETUSERIMG = "getUserImg";
 	private UserInfo userInfo;
+	private TextView tel_tv;
+	private LinearLayout yangll;
+	private TextView yangchebi;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_mycenter, container, false);
 		homeActivity = getActivity();
+		yangll=(LinearLayout) view.findViewById(R.id.yangll);
 		app = (DemoApplication) homeActivity.getApplication();
 		myCarLayout = (RelativeLayout) view.findViewById(R.id.my_car_layout);
 		UserInfoEdit = (ImageView) view.findViewById(R.id.user_logo);
@@ -99,6 +103,16 @@ public class MyCenterFragment extends Fragment {
 		userLogo = (CircleImageView) view.findViewById(R.id.user_logo);
 		userTel = (TextView) view.findViewById(R.id.user_tel_mycenter);
 		askQuestionLayout = (LinearLayout) view.findViewById(R.id.wenda_layout);
+		tel_tv=(TextView) view.findViewById(R.id.tel_tv);
+		yangchebi=(TextView) view.findViewById(R.id.yangchebi);
+		yangchebi.setText(app.getBalance());
+		if(null!=app.getToken()){
+			
+		}else{
+			yangll.setVisibility(View.GONE);
+		}
+		if(null!=app.getTelNum())
+		tel_tv.setText(app.getTelNum().trim());
 		askQuestionLayout.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -255,6 +269,8 @@ public class MyCenterFragment extends Fragment {
 			public void onClick(View view) {
 				final Dialog mDialog = new Dialog(homeActivity, R.style.dialog);
 				View v = LayoutInflater.from(homeActivity).inflate(R.layout.online_tel, null);
+				TextView textView_tel_num=(TextView) v.findViewById(R.id.textView_tel_num);
+				textView_tel_num.setText("拨打电话： "+app.getTelNum().trim());
 				mDialog.setContentView(v);
 				mDialog.setCanceledOnTouchOutside(true);
 				Window dialogWindow = mDialog.getWindow();
@@ -342,10 +358,20 @@ public class MyCenterFragment extends Fragment {
 			updateUserInfo();	
 			Glide.with(homeActivity).load(app.getUserInfo().user_img).into(userLogo);
 		}
+		Log.e("Tag", "yangchebi"+app.getBalance());
 		
-		
-
+		if(null!=app.getToken()){
+			
+			yangll.setVisibility(View.VISIBLE);
+			yangchebi.setText(app.getBalance());
+			
+		}else{
+			yangll.setVisibility(View.GONE);
+		}
+		getIconNum();
 	}
+	
+	
 
 	private void loadImage(String uri) {
 		ImageLoader.getInstance().loadImage(uri, new ImageLoadingListener() {
@@ -424,6 +450,63 @@ public class MyCenterFragment extends Fragment {
 
 						loadImage(jsonObj.getJSONArray("data").getJSONObject(0).getString("img"));
 						// userInfo.user_img=jsonObj.getJSONArray("data").getJSONObject(0).getString("img");
+
+
+					} else if ("2".equals(String.valueOf(jsonObj.getInt("code")))) {
+						// Token过期请重新登录
+						Toast.makeText(homeActivity, "请登录", Toast.LENGTH_SHORT).show();
+						Intent intent = new Intent(homeActivity, ShopLoginActivity.class);
+						startActivity(intent);
+					} else {
+
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+
+		});
+
+	}
+	
+	private void getIconNum() {
+		
+		HttpUtils httpUtils = new HttpUtils();
+		String url = ConstantClass.NET_URL + "getUserInfo";
+		RequestParams params = new RequestParams();
+		params.addBodyParameter("token", app.getToken());
+		httpUtils.send(HttpMethod.POST, url, params, new RequestCallBack<String>() {
+			@Override
+			public void onFailure(HttpException e, String s) {
+				Toast.makeText(homeActivity, "数据获取失败，请检查网络连接", Toast.LENGTH_SHORT).show();
+			}
+
+			@Override
+			public void onSuccess(ResponseInfo<String> responseInfo) {
+				String result = responseInfo.result;
+				JSONObject jsonObj = null;
+				try {
+					jsonObj = new JSONObject(result);
+					Gson gson = new Gson();
+				}
+
+				catch (JSONException e) {
+					e.printStackTrace();
+				}
+				Log.e("Tag", "---"+result);
+				try {
+					if ("1".equals(String.valueOf(jsonObj.getInt("code")))) {
+
+						app.setBalance(jsonObj.getString("data"));
+						
+						if(null!=app.getToken()){
+							
+							yangll.setVisibility(View.VISIBLE);
+							yangchebi.setText(app.getBalance());
+							
+						}else{
+							yangll.setVisibility(View.GONE);
+						}
 
 
 					} else if ("2".equals(String.valueOf(jsonObj.getInt("code")))) {

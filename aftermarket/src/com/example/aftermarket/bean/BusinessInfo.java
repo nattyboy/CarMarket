@@ -1,6 +1,7 @@
 package com.example.aftermarket.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BusinessInfo implements Serializable{
@@ -32,6 +33,7 @@ public class BusinessInfo implements Serializable{
 	public int is_collect;
 	public String easemob_user;
 	public List<BusinessItem> business;
+	public ArrayList<PromoteItem> promote;
 	@Override
 	public String toString() {
 		return "BusinessInfo [merchant_id=" + merchant_id + ", company_name=" + company_name + ", company_desc="

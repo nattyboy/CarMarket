@@ -38,6 +38,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.BitmapDrawable;
@@ -142,6 +143,10 @@ public class TyreActivity extends Activity implements OnLayoutChangeListener {
 		calendar = Calendar.getInstance();
 		editTyre = (EditText) findViewById(R.id.edit_tyre);
 		myCarTv = (TextView) findViewById(R.id.mycar_tv_tyre);
+		SharedPreferences sp = getSharedPreferences("LoginAfterCarActivity", MODE_PRIVATE);
+		category_name=sp.getString("car_Name", "");
+		category_id=sp.getString("car_Id", "");
+		myCarTv.setText(category_name);
 		dim_id = getIntent().getStringExtra("dim_id");
 		time = (TextView) findViewById(R.id.time_tv_tyre);
 		gridView = (NoScrollGridView) findViewById(R.id.gridView_tyre);
@@ -474,6 +479,8 @@ public class TyreActivity extends Activity implements OnLayoutChangeListener {
 		popuWindowTel.showAtLocation((View) view.getParent(), Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
 		popuWindowTel.setAnimationStyle(R.style.ActionSheetDialogAnimation);
 		popuWindowTel.update();
+		TextView textView_tel_num=(TextView) contentView1.findViewById(R.id.textView_tel_num);
+		textView_tel_num.setText("拨打电话： "+app.getTelNum().trim());
 		TextView cancelTv = (TextView) contentView1.findViewById(R.id.cancel_tv);
 		TextView ringTv = (TextView) contentView1.findViewById(R.id.ring_tv);
 		cancelTv.setOnClickListener(new OnClickListener() {
@@ -487,7 +494,7 @@ public class TyreActivity extends Activity implements OnLayoutChangeListener {
 
 			@Override
 			public void onClick(View v) {
-				String mobile = "4000000000";
+				String mobile =app.getTelNum().trim();
 				Intent intent = new Intent();
 				intent.setAction("android.intent.action.CALL");
 				intent.setData(Uri.parse("tel:" + mobile));// mobile为你要拨打的电话号码，模拟器中为模拟器编号也可

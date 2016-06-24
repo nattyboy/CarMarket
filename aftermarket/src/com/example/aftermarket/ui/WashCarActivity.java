@@ -212,6 +212,8 @@ public class WashCarActivity extends Activity implements IXListViewListener {
 		popuWindowTel.showAtLocation((View) view.getParent(), Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
 		popuWindowTel.setAnimationStyle(R.style.ActionSheetDialogAnimation);
 		popuWindowTel.update();
+		TextView textView_tel_num=(TextView) contentView1.findViewById(R.id.textView_tel_num);
+		textView_tel_num.setText("拨打电话： "+app.getTelNum().trim());
 		TextView cancelTv = (TextView) contentView1.findViewById(R.id.cancel_tv);
 		TextView ringTv = (TextView) contentView1.findViewById(R.id.ring_tv);
 		cancelTv.setOnClickListener(new OnClickListener() {
@@ -225,7 +227,7 @@ public class WashCarActivity extends Activity implements IXListViewListener {
 
 			@Override
 			public void onClick(View v) {
-				String mobile = "4000000000";
+				String mobile =app.getTelNum().trim();
 				Intent intent = new Intent();
 				intent.setAction("android.intent.action.CALL");
 				intent.setData(Uri.parse("tel:" + mobile));// mobile为你要拨打的电话号码，模拟器中为模拟器编号也可

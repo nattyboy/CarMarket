@@ -18,6 +18,7 @@ import com.example.aftermarket.ui.SelfWashCarSeller;
 import com.example.aftermarket.ui.SellerInfoActivity;
 import com.example.aftermarket.ui.ShopLoginActivity;
 import com.example.aftermarket.ui.WashCarActivity;
+import com.example.aftermarket.views.NoScrollListView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.BitmapUtils;
@@ -123,10 +124,13 @@ public class SellerListAdapter extends BaseAdapter {
 			vh.sellerClick1 = (LinearLayout) convertView.findViewById(R.id.seller_info_click1);
 			vh.sellerClick2 = (LinearLayout) convertView.findViewById(R.id.seller_info_click2);
 			vh.distance_icon = (ImageView) convertView.findViewById(R.id.distance_icon);
+			vh.mNoListView = (NoScrollListView) convertView.findViewById(R.id.listView_promote_list);
 			convertView.setTag(vh);
 		} else {
 			vh = (ViewHolder) convertView.getTag();
 		}
+
+		vh.mNoListView.setAdapter(new PromoteAdapter(context, sellerItems.get(position).promote,sellerItems,position));
 
 		Log.e("dajia", "--inflater---" + sellerItems.get(position).balance);
 		vh.seller_Cmp_Name.setText(sellerItems.get(position).company_name);
@@ -322,8 +326,8 @@ public class SellerListAdapter extends BaseAdapter {
 					intent.putExtra("easemob_user", sellerItems.get(position).easemob_user);
 					intent.putExtra("merchant_id", sellerItems.get(position).merchant_id);
 					intent.putExtra("is_collect", sellerItems.get(position).is_collect);
-					//intent.putExtra("in_Price", vh.in_Price.getText());
-					//intent.putExtra("out_Price", vh.out_Price.getText());
+					// intent.putExtra("in_Price", vh.in_Price.getText());
+					// intent.putExtra("out_Price", vh.out_Price.getText());
 					intent.putExtra("balance", sellerItems.get(position).margin);
 					if (null == sellerItems.get(position).shop || 0 == sellerItems.get(position).shop.size()) {
 
@@ -331,16 +335,15 @@ public class SellerListAdapter extends BaseAdapter {
 						intent.putExtra("out_Price", vh.out_Price.getText());
 						intent.putExtra("standar_Price", vh.standar_Price.getText());
 						intent.putExtra("in_Price", vh.in_Price.getText());
-						
+
 					}
 					if (null == sellerItems.get(position).door || 0 == sellerItems.get(position).door.size()) {
 
 					} else {
 
-						
 						intent.putExtra("carful_Price", vh.carful_Price.getText());
 						intent.putExtra("standar_Price", vh.standar_Price.getText());
-						Log.e("tag", "1111"+ vh.standar_Price.getText().toString());
+						Log.e("tag", "1111" + vh.standar_Price.getText().toString());
 					}
 
 					context.startActivity(intent);
@@ -364,7 +367,7 @@ public class SellerListAdapter extends BaseAdapter {
 					} else {
 						intent.putExtra("out_Price", vh.out_Price.getText());
 						intent.putExtra("standar_Price", vh.standar_Price.getText());
-						Log.e("tag", "1111"+ vh.standar_Price.getText().toString());
+						Log.e("tag", "1111" + vh.standar_Price.getText().toString());
 					}
 					if (null == sellerItems.get(position).door || 0 == sellerItems.get(position).door.size()) {
 
@@ -392,8 +395,8 @@ public class SellerListAdapter extends BaseAdapter {
 
 					} else {
 						intent.putExtra("out_Price", vh.out_Price.getText());
-						intent.putExtra("standar_Price", "1111"+vh.standar_Price.getText());
-						Log.e("tag", "1111"+ vh.standar_Price.getText().toString());
+						intent.putExtra("standar_Price", "1111" + vh.standar_Price.getText());
+						Log.e("tag", "1111" + vh.standar_Price.getText().toString());
 					}
 					if (null == sellerItems.get(position).door || 0 == sellerItems.get(position).door.size()) {
 
@@ -409,6 +412,11 @@ public class SellerListAdapter extends BaseAdapter {
 		if (null == sellerItems.get(position).margin || "0.00".equals(sellerItems.get(position).margin)) {
 			vh.seller_Cmp_balance.setVisibility(View.GONE);
 		}
+
+		vh.standLayout.setVisibility(View.GONE);
+		vh.inLayout.setVisibility(View.GONE);
+		vh.outLayout.setVisibility(View.GONE);
+		vh.carfulLayout.setVisibility(View.GONE);
 
 		return convertView;
 	}
@@ -437,6 +445,7 @@ public class SellerListAdapter extends BaseAdapter {
 		LinearLayout sellerClick1;
 		LinearLayout sellerClick2;
 		ImageView distance_icon;
+		NoScrollListView mNoListView;
 	}
 
 }

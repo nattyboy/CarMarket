@@ -182,6 +182,11 @@
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
+            android:name="com.example.aftermarket.ui.ProtocalActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide" >
+        </activity>
+        <activity
             android:name="com.example.aftermarket.ui.MyQuestionActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide" >

@@ -39,6 +39,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
@@ -151,6 +152,10 @@ public class UsedCarActivity extends Activity implements OnLayoutChangeListener 
 		yearTv = (TextView) findViewById(R.id.year_textView);
 		priceTv = (TextView) findViewById(R.id.price_textView);
 		carVersionTv = (TextView) findViewById(R.id.car_version_textview);
+		SharedPreferences sp = getSharedPreferences("LoginAfterCarActivity", MODE_PRIVATE);
+		category_name=sp.getString("car_Name", "");
+		category_id=sp.getString("car_Id", "");
+		carVersionTv.setText(category_name);
 		mView = LayoutInflater.from(this).inflate(R.layout.used_car_activity, null);
 		dim_id = getIntent().getStringExtra("dim_id");
 		gridView = (NoScrollGridView) findViewById(R.id.gridView_used_car);
@@ -207,6 +212,8 @@ public class UsedCarActivity extends Activity implements OnLayoutChangeListener 
 		popuWindowTel.showAtLocation((View) view.getParent(), Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
 
 		popuWindowTel.update();
+		TextView textView_tel_num=(TextView) contentView1.findViewById(R.id.textView_tel_num);
+		textView_tel_num.setText("拨打电话： "+app.getTelNum().trim());
 		TextView cancelTv = (TextView) contentView1.findViewById(R.id.cancel_tv);
 		TextView ringTv = (TextView) contentView1.findViewById(R.id.ring_tv);
 		cancelTv.setOnClickListener(new OnClickListener() {
@@ -220,7 +227,7 @@ public class UsedCarActivity extends Activity implements OnLayoutChangeListener 
 
 			@Override
 			public void onClick(View v) {
-				String mobile = "4000000000";
+				String mobile =app.getTelNum().trim();
 				Intent intent = new Intent();
 				intent.setAction("android.intent.action.CALL");
 				intent.setData(Uri.parse("tel:" + mobile));// mobile为你要拨打的电话号码，模拟器中为模拟器编号也可
@@ -656,7 +663,7 @@ public class UsedCarActivity extends Activity implements OnLayoutChangeListener 
 
 	public void carCatagoryClick(View view) {
 		if (null != app.getToken()) {
-			Intent intent = new Intent(UsedCarActivity.this, MyCarPortActivity.class);
+			Intent intent = new Intent(UsedCarActivity.this, CarCategoryActivity.class);
 			intent.putExtra("choose_car_used", "choose_car_used");
 			startActivity(intent);
 		} else {
@@ -671,11 +678,11 @@ public class UsedCarActivity extends Activity implements OnLayoutChangeListener 
 	protected void onNewIntent(Intent intent) {
 		super.onNewIntent(intent);
 		carVersionTv = (TextView) findViewById(R.id.car_version_textview);
-		if (null != intent.getStringExtra("car_version_used")) {
-			carVersionTv.setText(intent.getStringExtra("car_category_name_used"));
-			category_id = intent.getStringExtra("car_category_id_used");
-			category_name = intent.getStringExtra("car_category_name_used");
-			Log.e("car_category_name_wash", "car_category_name_tyre" + category_id);
+		if (null != intent.getStringExtra("carName")) {
+			carVersionTv.setText(intent.getStringExtra("carName"));
+			category_id = intent.getStringExtra("carId");
+			category_name = intent.getStringExtra("carName");
+			Log.e("carName", "car_category_name_tyre" + category_id);
 
 		}
 

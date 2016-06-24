@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.PopupWindow.OnDismissListener;
 
@@ -62,6 +63,7 @@ public class FeedBackActivity extends Activity {
 	private DemoApplication app;
 	private EditText inputEt;
 	NoScrollGridView gridView;
+	private TextView textView_tel;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -74,6 +76,12 @@ public class FeedBackActivity extends Activity {
 		gridView = (NoScrollGridView) findViewById(R.id.noScrollgridview);
 		adapter = new SquareAdapter(FeedBackActivity.this, 0);
 		gridView.setAdapter(adapter);
+		textView_tel = (TextView) findViewById(R.id.textView_tel);
+		if (null != app.getTelNum()) {
+
+			textView_tel.setText(app.getTelNum().trim());
+		}
+
 	}
 
 	public void submitFeedback(View v) {
@@ -151,7 +159,7 @@ public class FeedBackActivity extends Activity {
 		pop.setHeight(LayoutParams.WRAP_CONTENT);
 		pop.setBackgroundDrawable(new BitmapDrawable());
 		pop.setFocusable(true);
-		pop.setOutsideTouchable(true);  
+		pop.setOutsideTouchable(true);
 		pop.setContentView(view);
 		// 出现在布局底端
 		ColorDrawable cd = new ColorDrawable(0xd00000);
@@ -258,13 +266,13 @@ public class FeedBackActivity extends Activity {
 
 		if (data != null && requestCode == 2) {
 			Uri uri = data.getData();
-			String path_path = "";  
+			String path_path = "";
 			if (uri != null) {
-				if (uri.getPath().endsWith(".jpg")) { 
+				if (uri.getPath().endsWith(".jpg")) {
 					path_path = uri.getPath();
 				} else {
 					path_path = BitmapUtils.getImgPathByUri(this, uri);
-					//path_path = uri.getPath();
+					// path_path = uri.getPath();
 				}
 			} else {
 			}

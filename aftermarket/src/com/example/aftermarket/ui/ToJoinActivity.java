@@ -4,6 +4,7 @@ import org.apache.http.params.HttpParams;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.example.aftermarket.DemoApplication;
 import com.example.aftermarket.R;
 import com.example.aftermarket.config.ConstantClass;
 import com.example.aftermarket.utils.MobileNumPattern;
@@ -28,6 +29,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.PopupWindow;
@@ -49,20 +53,37 @@ public class ToJoinActivity extends Activity {
 	private CheckBox toJoinCheckBox;
 	PopupWindow popuWindowTel = null;
 	View contentView1 = null;
+	private DemoApplication app;
+	private TextView textVi8_protocal;
+	private  WebView webview;  
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.to_join_activity);
+		app=(DemoApplication) getApplication();
 		userEditText = (EditText) findViewById(R.id.join_username);
 		userTelEditText = (EditText) findViewById(R.id.join_tel);
 		cmpNameEditText = (EditText) findViewById(R.id.join_cmp_name);
 		userAddressEditText = (EditText) findViewById(R.id.join_cmp_address);
 		userDescEditText = (EditText) findViewById(R.id.join_cmp_desc);
 		toJoinCheckBox = (CheckBox) findViewById(R.id.to_join_checkBox);
+		textVi8_protocal=(TextView) findViewById(R.id.textVi8_protocal);
+		textVi8_protocal.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+			
+				Intent intent=new Intent(ToJoinActivity.this,ProtocalActivity.class);
+				startActivity(intent);
+				
+			}
+		});
 
 	}
+	
 
 	public void joinOnclick(View v) {
 		toJoinCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -175,6 +196,8 @@ public class ToJoinActivity extends Activity {
 		popuWindowTel.showAtLocation((View) view.getParent(), Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
 
 		popuWindowTel.update();
+		TextView textView_tel_num=(TextView) contentView1.findViewById(R.id.textView_tel_num);
+		textView_tel_num.setText("拨打电话： "+app.getTelNum().trim());
 		TextView cancelTv = (TextView) contentView1.findViewById(R.id.cancel_tv);
 		TextView ringTv = (TextView) contentView1.findViewById(R.id.ring_tv);
 		cancelTv.setOnClickListener(new OnClickListener() {
@@ -188,7 +211,7 @@ public class ToJoinActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				String mobile = "4000000000";
+				String mobile =app.getTelNum().trim();
 				Intent intent = new Intent();
 				intent.setAction("android.intent.action.CALL");
 				intent.setData(Uri.parse("tel:" + mobile));// mobile为你要拨打的电话号码，模拟器中为模拟器编号也可

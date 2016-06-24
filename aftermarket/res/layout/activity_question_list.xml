@@ -82,12 +82,12 @@
         android:orientation="vertical"
         android:visibility="gone" >
 
-        <com.example.aftermarket.views.SlideShowView
+        <com.example.aftermarket.views.SlideShowViewQ
             android:id="@+id/slideshowView_question"
             android:layout_width="fill_parent"
             android:layout_height="130dp"
             android:visibility="gone" >
-        </com.example.aftermarket.views.SlideShowView>
+        </com.example.aftermarket.views.SlideShowViewQ>
 
         <me.maxwin.view.XListView
             android:id="@+id/listView"

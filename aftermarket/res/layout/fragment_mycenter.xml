@@ -40,6 +40,7 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/linearLayout1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/my_car_layout"
@@ -90,11 +91,36 @@
                     android:id="@+id/user_tel_mycenter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
                     android:text="           "
                     android:textColor="#ffffff"
                     android:textSize="15sp" />
+
+                <LinearLayout
+                    android:id="@+id/yangll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:text="养车币："
+                        android:textColor="#ffffff"
+                        android:textSize="15sp" />
+                    <TextView
+                        android:id="@+id/yangchebi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:text=""
+                        android:textColor="#ffffff"
+                        android:textSize="15sp" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>

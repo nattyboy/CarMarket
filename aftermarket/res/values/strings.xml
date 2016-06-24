@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">爱车通</string>
+    <string name="app_name">养车助手</string>
     <string name="text_ack_msg">已读</string>
     <string name="text_delivered_msg">送达</string>
     <string name="back">返回</string>
@@ -80,7 +80,7 @@
     <string name="have_no_account">还没有账号?</string>
     <string name="skin_tabbar_icon_more">玩吧</string>
     <string name="login">登录</string>
-    <string name="login_after">登录汽车后市场</string>
+    <string name="login_after">登录养车助手</string>
     <string name="confirm_login">确认并登录</string>
     <string name="set_password">设置密码</string>
     <string name="foget_password">忘记密码？</string>
@@ -115,10 +115,10 @@
     <string name="seller">商家</string>
     <string name="default_cmp_name">合肥市君辉汽车有限公司</string>
     <string name="default_cmp_option">2500人评价</string>
-    <string name="default_cmp_address">地址：中国科学技术大学西区</string>
+    <string name="default_cmp_address">地址：中国科学技术大学西区中国科学技术大学西区中国科学技术大学西区</string>
     <string name="default_cmp_order">已成交245</string>
     <string name="default_cmp_distance">1.6km</string>
-    <string name="join_hint">您好！欢迎您申请汽车后市场的商家入驻，请您务必详细填写下面的信息，我们将在3个工作日内安排专门的客服与您联系，谢谢合作！</string>
+    <string name="join_hint">您好！欢迎您申请养车助手的商家入驻，请您务必详细填写下面的信息，我们将在3个工作日内安排专门的客服与您联系，谢谢合作！</string>
     <string name="appName">demoapp</string>
     <string name="wechat">微信</string>
     <string name="alipay">支付宝</string>

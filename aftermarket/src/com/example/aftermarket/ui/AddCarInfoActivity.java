@@ -1,5 +1,10 @@
 package com.example.aftermarket.ui;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -46,6 +51,8 @@ public class AddCarInfoActivity extends Activity {
 	private static final String REQUEST_HEADER = "carAdd";
 	private String tempCarId = null;
 	private String carName;
+	private Date date;
+	private int buyTimeInt;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +118,7 @@ public class AddCarInfoActivity extends Activity {
 		 */
 		String carImg = intent.getStringExtra("carImg");
 		String carId = intent.getStringExtra("carId");
-
+		Log.e("carImging", "carNameonre" + carImg);
 		carNameTv.setText(carName);
 		tempCarId = intent.getStringExtra("carId");
 	}
@@ -212,7 +219,48 @@ public class AddCarInfoActivity extends Activity {
 		params.addBodyParameter("buy_money", carPrice.getText().toString());
 		params.addBodyParameter("car_number", carNum.getText().toString());
 		params.addBodyParameter("car_owner", carUserName.getText().toString());
-		params.addBodyParameter("buy_date", carBuyTime.getText().toString());
+		if(null!=carBuyTime.getText())
+		Log.e("Tag", "carBuyTime" +carBuyTime.getText().toString());
+		if (null != carBuyTime.getText() && carBuyTime.getText().toString()!= "") {
+			
+			if(carBuyTime.getText().toString().length()!=0){
+				
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+				String str = carBuyTime.getText().toString().trim();
+				try {
+					Date datea = (Date) formatter.parse(str);
+					Log.e("Tag", "dateaa" + datea + "ddd" + str);
+
+				} catch (Exception e) {
+
+					Toast.makeText(this, "请输入正确的时间格式！", Toast.LENGTH_SHORT).show();
+					return;
+				}
+
+				try {
+					date = simpleDateFormat.parse(carBuyTime.getText().toString());
+					int timeStemp = (int) date.getTime();
+					buyTimeInt = (int) date.getTime();
+
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					System.out.println("llll");
+					return;
+				}
+				int timeStemp = (int) date.getTime();
+				Log.e("Tag", "datea1a" + timeStemp);
+				System.out.println(timeStemp);
+				
+			}
+			
+			
+		}
+		if (null != date) {
+
+			params.addBodyParameter("buy_date", (String) String.valueOf(date.getTime()).subSequence(0, String.valueOf(date.getTime()).length() - 3));
+		}
 		params.addBodyParameter("category_id", tempCarId);
 		params.addBodyParameter("engine_number", carEngNum.getText().toString());
 		params.addBodyParameter("carriage_number", carFrameNum.getText().toString());

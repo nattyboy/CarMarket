@@ -1,5 +1,10 @@
 package com.example.aftermarket.ui;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -47,7 +52,9 @@ public class EditCarInfoActivity extends Activity {
 	private String item_position_id;// 哪一个车型item传输过来的
 	private String car_id;
 	private String category_id;
-	Bundle bundle=null;
+	Bundle bundle = null;
+	private int buyTimeInt;
+	Date date = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +78,7 @@ public class EditCarInfoActivity extends Activity {
 			public void onClick(View v) {
 
 				Intent intent = new Intent(EditCarInfoActivity.this, CarCategoryActivity.class);
-				Bundle bundle=new Bundle();
+				Bundle bundle = new Bundle();
 				bundle.putString("carFrameNum", carFrameNum.getText().toString());
 				bundle.putString("carEngNum", carEngNum.getText().toString());
 				bundle.putString("carNum", carNum.getText().toString());
@@ -84,7 +91,7 @@ public class EditCarInfoActivity extends Activity {
 				bundle.putString("category_id", category_id);
 				intent.putExtras(bundle);
 				startActivity(intent);
-				//finish();
+				// finish();
 			}
 		});
 		reChooseTv.setOnClickListener(new OnClickListener() {
@@ -93,7 +100,7 @@ public class EditCarInfoActivity extends Activity {
 			public void onClick(View v) {
 
 				Intent intent = new Intent(EditCarInfoActivity.this, CarCategoryActivity.class);
-				Bundle bundle=new Bundle();
+				Bundle bundle = new Bundle();
 				bundle.putString("carFrameNum", carFrameNum.getText().toString());
 				bundle.putString("carEngNum", carEngNum.getText().toString());
 				bundle.putString("carNum", carNum.getText().toString());
@@ -106,7 +113,7 @@ public class EditCarInfoActivity extends Activity {
 				bundle.putString("category_id", category_id);
 				intent.putExtras(bundle);
 				startActivity(intent);
-				//finish();
+				// finish();
 
 			}
 		});
@@ -124,7 +131,7 @@ public class EditCarInfoActivity extends Activity {
 			car_id = intent.getStringExtra("car_id");
 			item_position_id = intent.getStringExtra("item_position");
 			category_id = intent.getStringExtra("category_id");
-		}else{
+		} else {
 			bundle = intent.getExtras();
 			carNameTv.setText(bundle.getString("carName"));
 			carTotalPath.setText(bundle.getString("carTotalPath"));
@@ -134,26 +141,29 @@ public class EditCarInfoActivity extends Activity {
 			carPrice.setText(bundle.getString("carPrice"));
 			carBuyTime.setText(bundle.getString("carBuyTime"));
 			carUserName.setText(bundle.getString("carUserName"));
-			car_id=bundle.getString("car_id");
-			category_id=bundle.getString("category_id");
-			 Log.e("Bundle", "EditCarInfoActivity"+bundle);
+			car_id = bundle.getString("car_id");
+			category_id = bundle.getString("category_id");
+			Log.e("Bundle", "EditCarInfoActivity" + bundle);
 		}
 	}
-	
+
 	@Override
 	protected void onNewIntent(Intent intent) {
 		// TODO Auto-generated method stub
 		super.onNewIntent(intent);
-		/*carName = intent.getStringExtra("carName");
-		Log.e("CarInfoActivity", "carNameonre" + intent.getStringExtra("carName"));
-		*//**
+		/*
+		 * carName = intent.getStringExtra("carName"); Log.e("CarInfoActivity",
+		 * "carNameonre" + intent.getStringExtra("carName"));
+		 *//**
 		 * 返回汽车头像
-		 *//*
-		String carImg = intent.getStringExtra("carImg");
-		String carId = intent.getStringExtra("carId");
-
-		carNameTv.setText(carName);
-		tempCarId = intent.getStringExtra("carId");*/
+		 */
+		/*
+		 * String carImg = intent.getStringExtra("carImg"); String carId =
+		 * intent.getStringExtra("carId");
+		 * 
+		 * carNameTv.setText(carName); tempCarId =
+		 * intent.getStringExtra("carId");
+		 */
 		if (intent.getStringExtra("item_position") != null) {
 			carNameTv.setText(intent.getStringExtra("category_name"));
 			carTotalPath.setText(intent.getStringExtra("total_mileage"));
@@ -166,7 +176,7 @@ public class EditCarInfoActivity extends Activity {
 			car_id = intent.getStringExtra("car_id");
 			item_position_id = intent.getStringExtra("item_position");
 			category_id = intent.getStringExtra("category_id");
-		}else{
+		} else {
 			bundle = intent.getExtras();
 			carNameTv.setText(bundle.getString("carName"));
 			carTotalPath.setText(bundle.getString("carTotalPath"));
@@ -176,9 +186,9 @@ public class EditCarInfoActivity extends Activity {
 			carPrice.setText(bundle.getString("carPrice"));
 			carBuyTime.setText(bundle.getString("carBuyTime"));
 			carUserName.setText(bundle.getString("carUserName"));
-			car_id=bundle.getString("car_id");
-			category_id=bundle.getString("category_id");
-			 Log.e("Bundle", "EditCarInfoActivity"+bundle);
+			car_id = bundle.getString("car_id");
+			category_id = bundle.getString("category_id");
+			Log.e("Bundle", "EditCarInfoActivity" + bundle);
 		}
 	}
 
@@ -189,7 +199,7 @@ public class EditCarInfoActivity extends Activity {
 		if (requestCode == REQUESTCODE_CARINFO && resultCode == RESULT_OK) {
 			String number = data.getStringExtra("carName");
 			Log.e("number", "number" + number);
-			//Toast.makeText(this, ""+number, Toast.LENGTH_SHORT).show();
+			// Toast.makeText(this, ""+number, Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -212,7 +222,7 @@ public class EditCarInfoActivity extends Activity {
 		intent.putExtra("carImg", intent.getStringExtra("carImg"));
 		intent.putExtra("carId", intent.getStringExtra("carId"));
 		intent.putExtra("item_position", item_position_id);
-		
+
 		/**
 		 * 返回汽车头像见上面的intent 也要传送过去
 		 */
@@ -225,13 +235,47 @@ public class EditCarInfoActivity extends Activity {
 		params.addBodyParameter("buy_money", carPrice.getText().toString());
 		params.addBodyParameter("car_number", carNum.getText().toString());
 		params.addBodyParameter("car_owner", carUserName.getText().toString());
-		params.addBodyParameter("buy_date", carBuyTime.getText().toString());
+		if (null != carBuyTime.getText() && carBuyTime.getText().toString() != "") {
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+			String str = carBuyTime.getText().toString().trim();
+			try {
+				Date datea = (Date) formatter.parse(str);
+				Log.e("Tag", "dateaa" + datea + "ddd" + str);
+
+			} catch (Exception e) {
+
+				Toast.makeText(this, "请输入正确的时间格式！", Toast.LENGTH_SHORT).show();
+				return;
+			}
+
+			try {
+				date = simpleDateFormat.parse(carBuyTime.getText().toString());
+				int timeStemp = (int) date.getTime();
+				buyTimeInt = (int) date.getTime();
+
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				System.out.println("llll");
+				return;
+			}
+			int timeStemp = (int) date.getTime();
+			Log.e("Tag", "datea1a" + timeStemp);
+			System.out.println(timeStemp);
+		}
+		if (null != date) {
+
+			params.addBodyParameter("buy_date", (String) String.valueOf(date.getTime()).subSequence(0, String.valueOf(date.getTime()).length() - 3));
+		}
+
 		params.addBodyParameter("category_id", category_id);
 		params.addBodyParameter("engine_number", carEngNum.getText().toString());
 		params.addBodyParameter("carriage_number", carFrameNum.getText().toString());
 		httpUtils.send(HttpMethod.POST, url, params, new RequestCallBack<String>() {
 			@Override
-			public void onFailure(HttpException e, String s) { Toast.makeText(getApplicationContext(), "数据获取失败，请检查网络连接", Toast.LENGTH_SHORT).show();
+			public void onFailure(HttpException e, String s) {
+				Toast.makeText(getApplicationContext(), "数据获取失败，请检查网络连接", Toast.LENGTH_SHORT).show();
 			}
 
 			@Override

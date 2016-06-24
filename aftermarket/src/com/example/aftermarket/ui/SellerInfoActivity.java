@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import com.easemob.chatuidemo.activity.ChatActivity;
 import com.example.aftermarket.DemoApplication;
 import com.example.aftermarket.R;
+import com.example.aftermarket.adpter.PromoteDetailAdapter;
 import com.example.aftermarket.adpter.SellerListAdapter;
 import com.example.aftermarket.adpter.SquareAdapterGridItem;
 import com.example.aftermarket.bean.Business;
@@ -17,6 +18,7 @@ import com.example.aftermarket.bean.Seller;
 import com.example.aftermarket.bean.SellerInfo;
 import com.example.aftermarket.config.ConstantClass;
 import com.example.aftermarket.views.NoScrollGridView;
+import com.example.aftermarket.views.NoScrollListView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.BitmapUtils;
@@ -66,7 +68,7 @@ public class SellerInfoActivity extends Activity {
 	private ProgressBar progressBar_seller;
 	private LinearLayout seller_Detail_Lt;
 	private String easemobUser = null;
-	private String merchant_id;
+	private String merchant_id="";
 	private int is_collect;
 	private ImageView collectImg;
 	private DemoApplication app;
@@ -88,12 +90,14 @@ public class SellerInfoActivity extends Activity {
 	private String balance;
 	NoScrollGridView gridViewName;
 	SquareAdapterGridItem adapterName;
+	private NoScrollListView listView_promote_detail;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// loadData();
 		setContentView(R.layout.seller_infomation);
+		listView_promote_detail=(NoScrollListView) findViewById(R.id.listView_promote_detail);
 		inTv = (TextView) findViewById(R.id.in_price_info);
 		carfulTv = (TextView) findViewById(R.id.carful_price_info);
 		outTv = (TextView) findViewById(R.id.out_price_info);
@@ -117,7 +121,7 @@ public class SellerInfoActivity extends Activity {
 		inPrice = intent.getStringExtra("in_Price");
 		outPrice = intent.getStringExtra("out_Price");
 		standPrice = intent.getStringExtra("standar_Price");
-		
+
 		balance = intent.getStringExtra("balance");
 		// is_collect = intent.getIntExtra("is_collect", 0);
 		easemobUser = intent.getStringExtra("easemob_user");
@@ -262,8 +266,15 @@ public class SellerInfoActivity extends Activity {
 		standLayout.setVisibility(View.GONE);
 		outLayout.setVisibility(View.GONE);
 		inLayout.setVisibility(View.GONE);
-		
-		loadDataImg(easemobUser);
+
+		if (null != easemobUser) {
+			loadDataImg(easemobUser);
+		}
+		carfulLayout.setVisibility(View.GONE);
+		inLayout.setVisibility(View.GONE);
+		outLayout.setVisibility(View.GONE);
+		standLayout.setVisibility(View.GONE);
+
 	}
 
 	private void loadData() {
@@ -282,6 +293,7 @@ public class SellerInfoActivity extends Activity {
 
 			@Override
 			public void onSuccess(ResponseInfo<String> responseInfo) {
+				Log.e("store_img", ""+4444444);
 				SystemClock.sleep(1000);
 				onlineaskbt.setVisibility(View.VISIBLE);
 				sellInfoProgress.setVisibility(View.GONE);
@@ -303,38 +315,41 @@ public class SellerInfoActivity extends Activity {
 					java.lang.reflect.Type type = new TypeToken<Business>() {
 					}.getType();
 					business = gson.fromJson(result, type);
-					int maxMemory = (int) Runtime.getRuntime().maxMemory();
-					int cacheSize = maxMemory / 8;
-					String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/x-utils";
-					BitmapUtils bitmapUtils = new BitmapUtils(SellerInfoActivity.this, path, cacheSize);
-					WindowManager wm = SellerInfoActivity.this.getWindowManager();
-					int width = wm.getDefaultDisplay().getWidth();
-					bitmapUtils.configDefaultBitmapMaxSize(width, width);
-					bitmapUtils.display(seller_Bg_Img, business.data.store_img);
-					Seller_name.setText("商家名称:" + business.data.company_name);
-					ex_Time.setText(business.data.on_time);
-					seller_Ins_Desc.setText(business.data.company_desc);
-					tel_Address.setText("电话: " + business.data.tel + "\n" + "\n" + "地址:" + business.data.address);
-					BigDecimal distanceValu = new BigDecimal(business.data.distance);
-					BigDecimal finalValue = distanceValu.divide(new BigDecimal(1000), 1, BigDecimal.ROUND_HALF_UP);
-					seller_Distance_Tv.setText("距离：< " + finalValue + " km");
-					BigDecimal b = new BigDecimal(15000);
-					if (finalValue.compareTo(b) >= 0) {
-
-						seller_Distance_Tv.setText("距离：" + "未知");
-					}
-					cus_Opinion.setText("客服评价" + "(" + business.data.evaluation_num + "人评价)");
-					ratingBar_seller.setRating(business.data.score);
-					cus_Star_Num.setText(business.data.score + "分");
-					balanceTv.setText(business.data.margin);
-					is_collect = business.data.is_collect;
-					Log.e("dajiayilian", "business.data" + result);
-					if (returnCollect().contains(merchant_id)) {
-						collectImg.setImageResource(R.drawable.shouchang_click);
-					} else {
-						collectImg.setImageResource(R.drawable.shouchang);
-					}
+					
 					if (null != business.data) {
+						
+						
+						
+						int maxMemory = (int) Runtime.getRuntime().maxMemory();
+						int cacheSize = maxMemory / 8;
+						String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/x-utils";
+						BitmapUtils bitmapUtils = new BitmapUtils(SellerInfoActivity.this, path, cacheSize);
+						WindowManager wm = SellerInfoActivity.this.getWindowManager();
+						int width = wm.getDefaultDisplay().getWidth();
+						bitmapUtils.configDefaultBitmapMaxSize(width, width);
+						bitmapUtils.display(seller_Bg_Img, business.data.store_img);
+						Seller_name.setText("商家名称:" + business.data.company_name);
+						ex_Time.setText(business.data.on_time);
+						seller_Ins_Desc.setText(business.data.company_desc);
+						tel_Address.setText("电话: " + business.data.tel + "\n" + "\n" + "地址:" + business.data.address);
+						BigDecimal distanceValu = new BigDecimal(business.data.distance);
+						BigDecimal finalValue = distanceValu.divide(new BigDecimal(1000), 1, BigDecimal.ROUND_HALF_UP);
+						seller_Distance_Tv.setText("距离：< " + finalValue + " km");
+						BigDecimal b = new BigDecimal(15000);
+						if (finalValue.compareTo(b) >= 0) {
+
+							seller_Distance_Tv.setText("距离：" + "未知");
+						}
+						cus_Opinion.setText("客服评价" + "(" + business.data.evaluation_num + "人评价)");
+						ratingBar_seller.setRating(business.data.score);
+						cus_Star_Num.setText(business.data.score + "分");
+						balanceTv.setText(business.data.margin);
+						is_collect = business.data.is_collect;
+						if (returnCollect().contains(merchant_id)) {
+							collectImg.setImageResource(R.drawable.shouchang_click);
+						} else {
+							collectImg.setImageResource(R.drawable.shouchang);
+						}
 
 						if (null != business.data.business) {
 
@@ -347,6 +362,7 @@ public class SellerInfoActivity extends Activity {
 							}
 
 						}
+						listView_promote_detail.setAdapter(new PromoteDetailAdapter(SellerInfoActivity.this, business.data.promote,business.data));
 
 					}
 				} catch (JSONException e) {
@@ -373,13 +389,13 @@ public class SellerInfoActivity extends Activity {
 									intent.putExtra("balance", business.data.margin);
 									startActivity(intent);
 									SharedPreferences mSharedPreferences = getSharedPreferences(easemobUser, Context.MODE_PRIVATE);
-								    Editor editor = mSharedPreferences.edit();       
-								    editor.putString("cmp_name", business.data.company_name);
-								    editor.putString("merchant_id", business.data.merchant_id);
-								    editor.putString("balance", business.data.margin);
-								    editor.putString("store_img", store_img);
-								    Log.e("dajiayilian","store_img"+business.data.store_img);
-								    editor.commit();
+									Editor editor = mSharedPreferences.edit();
+									editor.putString("cmp_name", business.data.company_name);
+									editor.putString("merchant_id", business.data.merchant_id);
+									editor.putString("balance", business.data.margin);
+									editor.putString("store_img", store_img);
+									Log.e("dajiayilian", "store_img" + business.data.store_img);
+									editor.commit();
 								} else {
 									Toast.makeText(SellerInfoActivity.this, "请登录", Toast.LENGTH_SHORT).show();
 									Intent intent = new Intent(SellerInfoActivity.this, ShopLoginActivity.class);

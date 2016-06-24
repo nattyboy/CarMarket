@@ -220,7 +220,7 @@
                             android:layout_marginLeft="0dp"
                             android:background="@null"
                             android:gravity="left"
-                            android:hint="输入修复改装具体需求……"
+                            android:hint="输入折扣车险具体需求……"
                             android:minLines="4"
                             android:padding="10dp"
                             android:textSize="15sp" />
@@ -252,7 +252,7 @@
                             android:layout_alignParentLeft="true"
                             android:layout_marginBottom="10dp"
                             android:layout_marginLeft="10dp"
-                            android:text="上传需处理部位图片"
+                            android:text="请上传行驶证图片"
                             android:textColor="#767676" />
 
                         <com.example.aftermarket.views.NoScrollGridView

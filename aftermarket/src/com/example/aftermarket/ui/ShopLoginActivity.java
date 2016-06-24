@@ -151,6 +151,7 @@ public class ShopLoginActivity extends Activity {
 					app.setToken(data.getString("token"));
 					app.setEase_user(user.data.ease_user);
 					app.setUserInfo(user.data);
+					app.setBalance(user.data.balance);
 					Log.e("dajia", "user.data.ease_user" + "" + user.data);
 
 					// loadEase();

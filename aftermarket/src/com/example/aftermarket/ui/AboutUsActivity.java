@@ -5,6 +5,7 @@ import java.io.File;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.example.aftermarket.DemoApplication;
 import com.example.aftermarket.R;
 import com.example.aftermarket.bean.AboutUs;
 import com.example.aftermarket.bean.Seller;
@@ -53,12 +54,14 @@ public class AboutUsActivity extends Activity {
 	private ImageView about_us_logo;
 	private TextView about_us_tv;
 	private TextView version_tv;
+	private DemoApplication app;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.about_us_activity);
+		app=(DemoApplication) getApplication();
 		version_tv = (TextView) findViewById(R.id.version_tv);
 		about_us_tv = (TextView) findViewById(R.id.about_us_tv);
 		about_us_logo = (ImageView) findViewById(R.id.about_us_logo);
@@ -87,6 +90,8 @@ public class AboutUsActivity extends Activity {
 				popuWindowTel.showAtLocation((View) view.getParent(), Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
 
 				popuWindowTel.update();
+				TextView textView_tel_num=(TextView) contentView1.findViewById(R.id.textView_tel_num);
+				textView_tel_num.setText("拨打电话： "+app.getTelNum().trim());
 				TextView cancelTv = (TextView) contentView1.findViewById(R.id.cancel_tv);
 				TextView ringTv = (TextView) contentView1.findViewById(R.id.ring_tv);
 				cancelTv.setOnClickListener(new OnClickListener() {
@@ -100,7 +105,7 @@ public class AboutUsActivity extends Activity {
 
 					@Override
 					public void onClick(View v) {
-						String mobile = "4000000000";
+						String mobile =app.getTelNum().trim();
 						Intent intent = new Intent();
 						intent.setAction("android.intent.action.CALL");
 						intent.setData(Uri.parse("tel:" + mobile));// mobile为你要拨打的电话号码，模拟器中为模拟器编号也可

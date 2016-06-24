@@ -30,6 +30,8 @@ import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -176,8 +178,9 @@ public class MyCarPortActivity extends Activity {
 					finish();
 				}
 				if (null != tempChooseCarStringlogin) {
-					TextView tv = (TextView) view.findViewById(R.id.car_version);
+					
 					Intent intent = new Intent(MyCarPortActivity.this, LoginAfterCarActivity.class);
+					TextView tv = (TextView) view.findViewById(R.id.car_version);
 					intent.putExtra("car_version_login", tv.getText().toString());
 					Log.e("car_version", "car_version_login" + tv.getText().toString());
 					intent.putExtra("car_category_id_login", myCarList.get(position).car_id);
@@ -185,6 +188,14 @@ public class MyCarPortActivity extends Activity {
 					startActivity(intent);
 					finish();
 				}
+				SharedPreferences sp = getSharedPreferences("LoginAfterCarActivity", MODE_PRIVATE);
+				Editor editor = sp.edit();
+				TextView tv = (TextView) view.findViewById(R.id.car_version);
+				editor.putString("car_Name", tv.getText().toString());
+				//editor.putString("car_Img", myCarList.get(position).car);
+				editor.putString("car_Id", myCarList.get(position).car_id);
+				
+				editor.commit();
 
 			}
 		});

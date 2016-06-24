@@ -44,6 +44,7 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -147,7 +148,7 @@ public class InputOrderActivity extends Activity implements PayResultCallBack {
 	private LinearLayout inputLayout;
 	private PopupWindow popupWindow;
 	private SquareAdapterGridItem adapterName;
-	private RadioButton zhifubao, weixin;
+	private RadioButton zhifubao, weixin, choose_bi;
 	private String car_id;
 	private int flag = 1;
 	private String merchant_id;
@@ -158,6 +159,8 @@ public class InputOrderActivity extends Activity implements PayResultCallBack {
 	private TextView balanceTv;
 	private String cmpNameorder;
 	View allView;
+	private String business_id = "";
+	private String cost = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -169,6 +172,7 @@ public class InputOrderActivity extends Activity implements PayResultCallBack {
 		chooseCarLayout = (RelativeLayout) findViewById(R.id.my_car_order);
 		zhifubao = (RadioButton) findViewById(R.id.choose_zhifubao);
 		weixin = (RadioButton) findViewById(R.id.choose_weixin);
+		choose_bi = (RadioButton) findViewById(R.id.choose_bi);
 		inputLayout = (LinearLayout) findViewById(R.id.input_order_layout);
 		inputOrderBar = (LinearLayout) findViewById(R.id.input_order_progress);
 		amountEditText = (EditText) findViewById(R.id.input_money);
@@ -177,6 +181,10 @@ public class InputOrderActivity extends Activity implements PayResultCallBack {
 		addressTv = (TextView) findViewById(R.id.choose_addr_tv_id);
 		chooseAddrLayout = (RelativeLayout) findViewById(R.id.choose_addr_id);
 		myCarVersion = (TextView) findViewById(R.id.car_info_id);
+		SharedPreferences sp = getSharedPreferences("LoginAfterCarActivity", MODE_PRIVATE);
+		String category_name = sp.getString("car_Name", "");
+		car_id = sp.getString("car_Id", "");
+		myCarVersion.setText(category_name);
 		app = (DemoApplication) getApplication();
 		chooseCar = (ImageView) findViewById(R.id.order_choosecar);
 		insurePay = (Button) findViewById(R.id.insure_pay);
@@ -192,6 +200,8 @@ public class InputOrderActivity extends Activity implements PayResultCallBack {
 		washName = intent.getStringExtra("wash_Name");
 		washPrice = intent.getStringExtra("wash_Price");
 		washCmp = intent.getStringExtra("cmp_name");
+		business_id = intent.getStringExtra("business_id");
+		cost = intent.getStringExtra("cost");
 		cmpNameorder = intent.getStringExtra("cmp_name_order");
 		merchant_id = intent.getStringExtra("merchant_id");
 		address_id = intent.getStringExtra("address_id");
@@ -274,12 +284,14 @@ public class InputOrderActivity extends Activity implements PayResultCallBack {
 							} else if ((selectHour == currentHour) && (selectMinute < currentMinute)) {
 								Toast.makeText(getApplicationContext(), "不能选择过去的时间\n        请重新选择", 0).show();
 							} else {
-								//orderTimeTv.setText("服务时间:" + selectDate + selectTime);
+								// orderTimeTv.setText("服务时间:" + selectDate +
+								// selectTime);
 								textView_time.setText(selectDate + selectTime);
 								pw.dismiss();
 							}
 						} else {
-							//orderTimeTv.setText("服务时间:" + selectDate + selectTime);
+							// orderTimeTv.setText("服务时间:" + selectDate +
+							// selectTime);
 							textView_time.setText(selectDate + selectTime);
 							pw.dismiss();
 						}
@@ -323,8 +335,10 @@ public class InputOrderActivity extends Activity implements PayResultCallBack {
 
 				weixin.setBackgroundResource(R.drawable.xuanzhefukuanfangshi_no);
 				zhifubao.setBackgroundResource(R.drawable.xuanzhefukuanfangshi);
+				choose_bi.setBackgroundResource(R.drawable.xuanzhefukuanfangshi_no);
 				payWay = CHANNEL_ALIPAY;
 				flag = 1;
+				Log.e("hello", "flag-----" + flag);
 			}
 		});
 		weixin.setOnClickListener(new OnClickListener() {
@@ -334,8 +348,22 @@ public class InputOrderActivity extends Activity implements PayResultCallBack {
 
 				zhifubao.setBackgroundResource(R.drawable.xuanzhefukuanfangshi_no);
 				weixin.setBackgroundResource(R.drawable.xuanzhefukuanfangshi);
+				choose_bi.setBackgroundResource(R.drawable.xuanzhefukuanfangshi_no);
 				payWay = CHANNEL_WECHAT;
 				flag = 2;
+				Log.e("hello", "flag-----" + flag);
+			}
+		});
+		choose_bi.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				choose_bi.setBackgroundResource(R.drawable.xuanzhefukuanfangshi);
+				zhifubao.setBackgroundResource(R.drawable.xuanzhefukuanfangshi_no);
+				weixin.setBackgroundResource(R.drawable.xuanzhefukuanfangshi_no);
+				flag = 3;
+				Log.e("hello", "flag-----" + flag);
 			}
 		});
 		/**
@@ -345,18 +373,29 @@ public class InputOrderActivity extends Activity implements PayResultCallBack {
 
 			@Override
 			public void onClick(View v) {
-				if (null == app.getData()) {
+
+				Log.e("hello", "--flag--" + flag);
+
+				if (flag == 3) {
+
+					Log.e("hello", "--f--" + flag);
 					submitOrder();
-					Log.e("hello", "amountsubmitOrder执行到这里" + app.getData());
 
 				} else {
-					Log.e("hello", "amountsubmitOrder执行到这里" + app.getData());
-					URL = (String) app.getData();
-					Message msg = new Message();
-					msg.what = GOTOPAY;
-					handler.sendEmptyMessage(msg.what);
-					app.setData(null);
+
+					if (null == app.getData()) {
+						submitOrder();
+
+					} else {
+						URL = (String) app.getData();
+						Message msg = new Message();
+						msg.what = GOTOPAY;
+						handler.sendEmptyMessage(msg.what);
+						app.setData(null);
+					}
+
 				}
+
 			}
 		});
 		amountEditText = (EditText) findViewById(R.id.input_money);
@@ -376,6 +415,12 @@ public class InputOrderActivity extends Activity implements PayResultCallBack {
 
 		loadAddressData();
 		getIntent().getStringExtra("cmp_name");
+		if (null != cost) {
+
+			amountEditText.setText(cost);
+
+		}
+
 	}
 
 	// listeners
@@ -509,31 +554,30 @@ public class InputOrderActivity extends Activity implements PayResultCallBack {
 				String errorMsg = data.getExtras().getString("error_msg"); // 错误信息
 				String extraMsg = data.getExtras().getString("extra_msg"); // 错误信息
 				Log.e("message", errorMsg + "" + extraMsg);
-				//showMsg(result, errorMsg, extraMsg);
-				
-					if (result.equals("success")) {
-						paySuccess();
-					}
-					if (result.equals("fail")) {
-						
-						Toast.makeText(this, "支付失败", Toast.LENGTH_SHORT).show();
-						app.setData(null);
+				// showMsg(result, errorMsg, extraMsg);
 
-					}
-					if (result.equals("cancel")) {
-						
-						Toast.makeText(this, "取消了支付", Toast.LENGTH_SHORT).show();
-						app.setData(null);
+				if (result.equals("success")) {
+					paySuccess();
+				}
+				if (result.equals("fail")) {
 
-					}
-					if (result.equals("invalid")) {
-						
-						Toast.makeText(this, "未安装支付宝或微信", Toast.LENGTH_SHORT).show();
-						app.setData(null);
+					Toast.makeText(this, "支付失败", Toast.LENGTH_SHORT).show();
+					app.setData(null);
 
-					}
-					app.setData(null); 
-				
+				}
+				if (result.equals("cancel")) {
+
+					Toast.makeText(this, "取消了支付", Toast.LENGTH_SHORT).show();
+					app.setData(null);
+
+				}
+				if (result.equals("invalid")) {
+
+					Toast.makeText(this, "未安装支付宝或微信", Toast.LENGTH_SHORT).show();
+					app.setData(null);
+
+				}
+				app.setData(null);
 
 			}
 		}
@@ -638,17 +682,28 @@ public class InputOrderActivity extends Activity implements PayResultCallBack {
 
 					@Override
 					public void onClick(View v) {
-						if (null == app.getData()) {
+						Log.e("hello", "--flag--" + flag);
+
+						if (flag == 3) {
+
+							Log.e("hello", "--f--" + flag);
 							submitOrder();
-							Log.e("hello", "amountsubmitOrder执行到这里" + app.getData());
 
 						} else {
-							Log.e("hello", "amountsubmitOrder执行到这里" + app.getData());
-							URL = (String) app.getData();
-							Message msg = new Message();
-							msg.what = GOTOPAY;
-							handler.sendEmptyMessage(msg.what);
-							app.setData(null);
+
+							if (null == app.getData()) {
+								submitOrder();
+								Log.e("hello", "amountsubmitOrder执行到这里" + app.getData());
+
+							} else {
+								Log.e("hello", "amountsubmitOrder执行到这里" + app.getData());
+								URL = (String) app.getData();
+								Message msg = new Message();
+								msg.what = GOTOPAY;
+								handler.sendEmptyMessage(msg.what);
+								app.setData(null);
+							}
+
 						}
 
 					}
@@ -660,6 +715,8 @@ public class InputOrderActivity extends Activity implements PayResultCallBack {
 	}
 
 	private void submitOrder() {
+
+		Log.e("hello", "getJSONObject" + "-----" + flag);
 
 		if (null == myCarVersion.getText()) {
 			Toast.makeText(this, "车型不能为空", Toast.LENGTH_SHORT).show();
@@ -702,10 +759,33 @@ public class InputOrderActivity extends Activity implements PayResultCallBack {
 			Toast.makeText(this, "请输入正确的金额", Toast.LENGTH_SHORT).show();
 			return;
 		}
+		Log.e("hello", "getJSONObject" + "---2--" + flag);
 		if (Float.parseFloat(amountEditText.getText().toString()) < 0.009) {
 			Toast.makeText(this, "请输入正确的金额", Toast.LENGTH_SHORT).show();
 			return;
 		}
+
+		if (flag == 3) {
+			if (Float.parseFloat(amountEditText.getText().toString()) > Float.parseFloat(app.getBalance())) {
+				Toast.makeText(this, "金额不能大于养车币", Toast.LENGTH_SHORT).show();
+				return;
+
+			}
+
+		}
+
+		Log.e("hello", "getJSONObject" + "---3--" + flag);
+
+		if (null == textView_time.getText()) {
+			Toast.makeText(this, "服务时间不能为空", Toast.LENGTH_SHORT).show();
+			return;
+		}
+
+		if (TextUtils.isEmpty(textView_time.getText().toString())) {
+			Toast.makeText(this, "服务时间不能为空", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		Log.e("hello", "getJSONObject" + "---3--" + flag);
 
 		HttpUtils httpUtils = new HttpUtils();
 		String url = ConstantClass.NET_URL + REQUEST_HEADER;
@@ -717,12 +797,13 @@ public class InputOrderActivity extends Activity implements PayResultCallBack {
 		params.addBodyParameter("merchant_id", merchant_id);
 		Log.e("hello", "merchant_id" + merchant_id);
 		params.addBodyParameter("order_date", new Date_U().data(textView_time.getText().toString() + "00秒"));
-		Log.e("Tag", "time"+new Date_U().data(textView_time.getText().toString() + "00秒"));
+		Log.e("Tag", "time" + new Date_U().data(textView_time.getText().toString() + "00秒"));
 		params.addBodyParameter("pay_id", String.valueOf(flag));
 		Log.e("hello", "flag" + flag);
 		params.addBodyParameter("business", oderItemTv.getText().toString());
 		params.addBodyParameter("order_amount", amountEditText.getText().toString().trim());
 		params.addBodyParameter("token", app.getToken());
+		params.addBodyParameter("business_id", business_id);
 
 		httpUtils.send(HttpMethod.POST, url, params, new RequestCallBack<String>() {
 			@Override
@@ -741,22 +822,37 @@ public class InputOrderActivity extends Activity implements PayResultCallBack {
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
+				Log.e("hello", "getJSONObject" + result);
 				try {
 					if ("1".equals(String.valueOf(jsonObj.getInt("code")))) {
-						Log.e("hello", "getJSONObject" + jsonObj.getJSONObject("data"));
-						URL = jsonObj.getJSONObject("data").toString();
-						app.setData(URL);
-						Log.e("hello", "amountsubmitOrder执行到这里" + app.getData());
-						Message msg = new Message();
-						msg.what = GOTOPAY;
-						handler.sendEmptyMessage(msg.what);
+
+						Log.e("hello", "getJSONObject" + "---flagflag--" + flag);
+
+						if (flag == 3) {
+
+							Log.e("hello", "getJSONObject" + "---paySuccess--" + flag);
+
+							paySuccess();
+
+							app.setBalance(String.valueOf(Float.parseFloat(app.getBalance()) - Float.parseFloat(amountEditText.getText().toString().trim())));
+
+						} else {
+
+							URL = jsonObj.getJSONObject("data").toString();
+							app.setData(URL);
+							Log.e("hello", "amountsubmitOrder执行到这里" + app.getData() + "-----" + flag);
+							Message msg = new Message();
+							msg.what = GOTOPAY;
+							handler.sendEmptyMessage(msg.what);
+						}
+
 					} else if ("2".equals(String.valueOf(jsonObj.getInt("code")))) {
 						// Token过期请重新登录
 						Toast.makeText(InputOrderActivity.this, "请登录", Toast.LENGTH_SHORT).show();
 						Intent intent = new Intent(InputOrderActivity.this, ShopLoginActivity.class);
 						startActivity(intent);
 					} else {
-
+						Toast.makeText(InputOrderActivity.this, "操作失败", Toast.LENGTH_SHORT).show();
 					}
 					Log.e("hello", "json " + jsonObj.getString("msg"));
 				} catch (JSONException e) {
@@ -848,8 +944,9 @@ public class InputOrderActivity extends Activity implements PayResultCallBack {
 
 							if (1 == addressList.get(i).is_default) {
 								userName.setText(addressList.get(i).consignee);
-								//addressTv.setText(addressList.get(i).full_address);
+								addressTv.setText(addressList.get(i).full_address);
 								userTel.setText(addressList.get(i).mobile);
+								address_id=addressList.get(i).address_id;
 
 							}
 						}

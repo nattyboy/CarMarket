@@ -13,7 +13,7 @@
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/textView_tel_num"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_gravity="center"

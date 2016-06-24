@@ -90,10 +90,12 @@ public class CarCategoryActivity extends Activity {
 	private List<Object> carItem = new ArrayList<>();
 	private Bundle bundle;
 	private RelativeLayout titleBar;
+	private String used_car;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
 		setContentView(R.layout.cars_model_list);
 		titleBar = (RelativeLayout) findViewById(R.id.ll_car_list);
 		app = (DemoApplication) getApplication();
@@ -102,6 +104,8 @@ public class CarCategoryActivity extends Activity {
 		chooseBranch = (RelativeLayout) findViewById(R.id.ll_car_list);
 		popWindowAnTv = (TextView) findViewById(R.id.popupwindow_id);
 		bundle = this.getIntent().getExtras();
+		used_car = this.getIntent().getStringExtra("choose_car_used");
+		Log.e("used_car", "" + used_car);
 		initViews();
 		loadData();
 
@@ -369,11 +373,14 @@ public class CarCategoryActivity extends Activity {
 					}.getType();
 					car = gson.fromJson(result, type);
 
-					Log.e("CarCategoryActivity", "car" + car);
 					if (0 == car.data.size()) {
 						carSeriesLv.setAdapter(null);
 						return;
 					} else {
+						carIdItem = new ArrayList<>();
+						carNameItem = new ArrayList<>();
+						carTitleItem = new ArrayList<>();
+						carImgItem = new ArrayList<>();
 						for (int i = 0; i < car.data.size(); i++) {
 
 							for (int j = 0; j < car.data.get(i).children.size(); j++) {
@@ -382,10 +389,7 @@ public class CarCategoryActivity extends Activity {
 								StringBuffer sbtitle = new StringBuffer(car.data.get(i).header);
 								StringBuffer sbImg = new StringBuffer(car.data.get(i).children.get(j).category_img);
 								StringBuffer sbId = new StringBuffer(car.data.get(i).children.get(j).category_id);
-								carIdItem = new ArrayList<>();
-								carNameItem = new ArrayList<>();
-								carTitleItem = new ArrayList<>();
-								carImgItem = new ArrayList<>();
+
 								carIdItem.add(sbId.toString());
 								carTitleItem.add(sbtitle.toString());
 								carNameItem.add(sb.toString());
@@ -396,10 +400,11 @@ public class CarCategoryActivity extends Activity {
 								sbId = null;
 							}
 
-							carSeriesAdapter = new CarSeriesAdapter(CarCategoryActivity.this, carNameItem, carTitleItem, carImgItem, carIdItem, bundle);
-							carSeriesLv.setAdapter(carSeriesAdapter);
-
 						}
+						Log.e("carNameItem", "" + carNameItem.size());
+
+						carSeriesAdapter = new CarSeriesAdapter(CarCategoryActivity.this, carNameItem, carTitleItem, carImgItem, carIdItem, bundle, used_car);
+						carSeriesLv.setAdapter(carSeriesAdapter);
 
 					}
 

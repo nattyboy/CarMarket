@@ -176,6 +176,8 @@ public class SellerFragment extends Fragment implements IXListViewListener {
 			public void onClick(View view) {
 				final Dialog mDialog = new Dialog(homeActivity, R.style.dialog);
 				View v = LayoutInflater.from(homeActivity).inflate(R.layout.online_tel, null);
+				TextView textView_tel_num=(TextView) v.findViewById(R.id.textView_tel_num);
+				textView_tel_num.setText("拨打电话： "+app.getTelNum().trim());
 				mDialog.setContentView(v);
 				mDialog.setCanceledOnTouchOutside(true);
 				Window dialogWindow = mDialog.getWindow();
@@ -200,7 +202,7 @@ public class SellerFragment extends Fragment implements IXListViewListener {
 
 					@Override
 					public void onClick(View v) {
-						String mobile = "4000000000";
+						String mobile = app.getTelNum().trim();
 						Intent intent = new Intent();
 						intent.setAction("android.intent.action.CALL");
 						intent.setData(Uri.parse("tel:" + mobile));// mobile为你要拨打的电话号码，模拟器中为模拟器编号也可

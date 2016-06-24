@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="登录汽车后市场"
+            android:text="登录养车助手"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#474747"
             android:textSize="18sp" />
@@ -255,7 +255,7 @@
         android:layout_gravity="center"
         android:background="@drawable/bigradiu_button"
         android:gravity="center"
-        android:text="进入汽车后市场"
+        android:text="进入养车助手"
         android:onClick="toCarHome"
         android:textColor="@android:color/white"
         android:textSize="15sp" />

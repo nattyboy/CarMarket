@@ -1,5 +1,6 @@
 package com.example.aftermarket.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SellerInfo {
@@ -32,17 +33,15 @@ public class SellerInfo {
 	public String easemob_user;
 	public List<ServiceItem> door;
 	public List<ServiceItem> shop;
+	public ArrayList<PromoteItem> promote;
 	@Override
 	public String toString() {
-		return "SellerInfo [merchant_id=" + merchant_id + ", company_name=" + company_name + ", company_desc="
-				+ company_desc + ", address=" + address + ", contact_user=" + contact_user + ", contact_mobile="
-				+ contact_mobile + ", user_id=" + user_id + ", company_logo=" + company_logo + ", store_img="
-				+ store_img + ", on_time=" + on_time + ", tel=" + tel + ", balance=" + balance + ", margin=" + margin
-				+ ", enable=" + enable + ", score=" + score + ", evaluation_num=" + evaluation_num + ", volume="
-				+ volume + ", is_approve=" + is_approve + ", merchant_type=" + merchant_type + ", create_time="
-				+ create_time + ", update_time=" + update_time + ", business_approve=" + business_approve + ", lat="
-				+ lat + ", lng=" + lng + ", distance=" + distance + ", is_collect=" + is_collect + ", easemob_user="
-				+ easemob_user + ", door=" + door + ", shop=" + shop + "]";
+		return "SellerInfo [merchant_id=" + merchant_id + ", company_name=" + company_name + ", company_desc=" + company_desc + ", address=" + address + ", contact_user=" + contact_user
+				+ ", contact_mobile=" + contact_mobile + ", user_id=" + user_id + ", company_logo=" + company_logo + ", store_img=" + store_img + ", on_time=" + on_time + ", tel=" + tel
+				+ ", balance=" + balance + ", margin=" + margin + ", enable=" + enable + ", score=" + score + ", evaluation_num=" + evaluation_num + ", volume=" + volume + ", is_approve="
+				+ is_approve + ", merchant_type=" + merchant_type + ", create_time=" + create_time + ", update_time=" + update_time + ", business_approve=" + business_approve + ", lat=" + lat
+				+ ", lng=" + lng + ", distance=" + distance + ", is_collect=" + is_collect + ", easemob_user=" + easemob_user + ", door=" + door + ", shop=" + shop + ", promote=" + promote + "]";
 	}
+	
 	
 }

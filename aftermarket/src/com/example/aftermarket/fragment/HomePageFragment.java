@@ -9,6 +9,7 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.bumptech.glide.load.model.UrlLoader;
 import com.easemob.EMEventListener;
 import com.easemob.EMNotifierEvent;
 import com.easemob.applib.controller.HXSDKHelper;
@@ -75,7 +76,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 public class HomePageFragment extends Fragment implements ViewPager.OnPageChangeListener {
 	private static final String REQUEST_HEADER = "home";
 	protected static final int SETVISI = 0x01;
-	private SlideShowView mSlideShowView;
+
 	private RadioGroup rg1;
 	private RadioGroup rg2;
 	private View v;
@@ -89,7 +90,6 @@ public class HomePageFragment extends Fragment implements ViewPager.OnPageChange
 	private ImageView washCar;
 	private TextView messageTitleTv;
 	private LinearLayout washCarLayout, beautyLayout, rapairLayout, maitainsaLayout, sheetLayout, diagnoseLayout, tyreLayout, usedCarLayout;
-	private List<Integer> imageUris;
 	private DemoApplication app;
 	private TextView tv_notice;
 	private Home home;
@@ -113,16 +113,16 @@ public class HomePageFragment extends Fragment implements ViewPager.OnPageChange
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		List<Integer> imageUris = new ArrayList<Integer>();
+
 		homeactivity = getActivity();
 		app = (DemoApplication) homeactivity.getApplication();
-		imageUris.add(R.drawable.one);
-		imageUris.add(R.drawable.two);
-		imageUris.add(R.drawable.three);
+
 		v = inflater.inflate(R.layout.fragment_homepage, container, false);
 
-		mSlideShowView = (SlideShowView) v.findViewById(R.id.slideshowView);
-		mSlideShowView.setImageUris(imageUris);
+		/*
+		 * mSlideShowView = (SlideShowView) v.findViewById(R.id.slideshowView);
+		 * mSlideShowView.setImageUris(imageUris);
+		 */
 		dot0 = (ImageView) v.findViewById(R.id.dot0);
 		dot1 = (ImageView) v.findViewById(R.id.dot1);
 		dot2 = (ImageView) v.findViewById(R.id.dot2);
@@ -164,7 +164,7 @@ public class HomePageFragment extends Fragment implements ViewPager.OnPageChange
 					Intent intent = new Intent(homeactivity, MainActivity.class);
 					homeactivity.startActivity(intent);
 					tipsIv.setVisibility(View.INVISIBLE);
-				} else { 
+				} else {
 					Toast.makeText(homeactivity, "请登录", Toast.LENGTH_SHORT).show();
 					Intent intent = new Intent(homeactivity, ShopLoginActivity.class);
 					startActivity(intent);
@@ -317,6 +317,15 @@ public class HomePageFragment extends Fragment implements ViewPager.OnPageChange
 
 	}
 
+	@Override
+	public void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		/*
+		 * if (null != mSlideShowView) { mSlideShowView.clearUrls(); }
+		 */
+	}
+
 	private void setCurrentPoint(int position) {
 
 		for (int i = 0; i <= imageDots.size() - 1; i++) {
@@ -382,6 +391,43 @@ public class HomePageFragment extends Fragment implements ViewPager.OnPageChange
 									}
 									if (null != tvNotice) {
 										tv_notice.setText(tvNotice);
+									}
+								}
+
+								if (null != home.data.tel) {
+									app.setTelNum(home.data.tel);
+								}
+
+								if (null != home.data) {
+									if (null != home.data.top) {
+										ArrayList<String> urlist = new ArrayList<>();
+										ArrayList<String> idlist = new ArrayList<>();
+
+										for (int i = 0; i < home.data.top.size(); i++) {
+
+											// imageUris.add(home.data.top.get(i));
+											urlist.add(home.data.top.get(i).ad_url);
+											idlist.add(home.data.top.get(i).merchant_id);
+											Log.e("store_img", home.data.top.get(i).ad_url);	
+										}
+										ArrayList imageUris = new ArrayList<Integer>();
+										if (null != imageUris) {
+											if (imageUris.size() > 3 || imageUris.size() == 3) {
+
+											} else {
+												imageUris.add(R.drawable.one);
+												imageUris.add(R.drawable.two);
+												imageUris.add(R.drawable.three);
+											}
+										}
+
+										SlideShowView mSlideShowView = (SlideShowView) v.findViewById(R.id.slideshowView);
+										
+										mSlideShowView.setUrls(urlist,idlist);
+										mSlideShowView.setImageUris(imageUris);
+										urlist.clear();
+										imageUris.clear();
+
 									}
 								}
 
@@ -502,8 +548,8 @@ public class HomePageFragment extends Fragment implements ViewPager.OnPageChange
 
 		});
 	}
-	
-	 @Override
+
+	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		// TODO Auto-generated method stub
 		super.onSaveInstanceState(outState);

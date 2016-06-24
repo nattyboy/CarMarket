@@ -13,12 +13,13 @@ public class UserInfo {
 	public String address_id;
 	public AddressItem address;
 	public String token;
+	public String balance;
 	@Override
 	public String toString() {
-		return "UserInfo [user_id=" + user_id + ", mobile=" + mobile + ", user_name=" + user_name + ", sex=" + sex
-				+ ", collect=" + collect + ", user_img=" + user_img + ", ease_user=" + ease_user + ", ease_pwd="
-				+ ease_pwd + ", address_id=" + address_id + ", address=" + address + ", token=" + token + "]";
+		return "UserInfo [user_id=" + user_id + ", mobile=" + mobile + ", user_name=" + user_name + ", sex=" + sex + ", collect=" + collect + ", user_img=" + user_img + ", ease_user=" + ease_user
+				+ ", ease_pwd=" + ease_pwd + ", address_id=" + address_id + ", address=" + address + ", token=" + token + ", balance=" + balance + "]";
 	}
+	
 	
 }
 

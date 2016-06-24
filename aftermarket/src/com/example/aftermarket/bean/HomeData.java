@@ -1,11 +1,12 @@
 package com.example.aftermarket.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeData {
 	
 	public StartItem start;
-	public List<TopItem> top;
+	public ArrayList<TopItem> top;
 	public List<FooterItem> footer;
 	public List<QuestionItem> question;
 	public List<NoticeItem> notice;
